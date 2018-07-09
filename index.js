@@ -90,7 +90,7 @@ const sqrt = Math.sqrt
 // So in our y(f) function, y(f) = f(y(f))
 const y = f => x => f(y(f))(x)
 const tenFactorial = y(factorialFactory)(10)
-console.log(tenFactorial)
+console.log('tenFactorial => ', tenFactorial)
 
 // y(factorialFactory)(10)
 // factorialFactory(y(factorialFactory))(10)
@@ -98,3 +98,14 @@ console.log(tenFactorial)
 // First piece can be evaluated, so pass on to next:
 // 10 * (x => factorialFactory(y(factorialFactory))(x))(9)
 // 10 * factorialFactory(y(factorialFactory))(9)
+
+
+// But we're still using recursion by referring to y within, so we need to subtitute y
+const x = otherX => f => n => f(otherX(otherX)(f))(n)
+
+const newY = x(x)
+const newFactorial = newY(factorialFactory)
+console.log('newFactorial(10) => ', newFactorial(10)) // 3628800
+
+const finalY = (x => f => (...a) => f(x(x)(f))(...a))(x => f => (...a) => f(x(x)(f))(...a))
+console.log('Y(factorialFactory)(10) => ', finalY(factorialFactory)(10)) // 3628800
