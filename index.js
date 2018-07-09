@@ -107,5 +107,6 @@ const newY = x(x)
 const newFactorial = newY(factorialFactory)
 console.log('newFactorial(10) => ', newFactorial(10)) // 3628800
 
-const finalY = (x => f => (...a) => f(x(x)(f))(...a))(x => f => (...a) => f(x(x)(f))(...a))
+const yPiece = x => f => (...a) => f(x(x)(f))(...a)
+const finalY = yPiece(yPiece)
 console.log('Y(factorialFactory)(10) => ', finalY(factorialFactory)(10)) // 3628800
