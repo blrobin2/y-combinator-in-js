@@ -73,3 +73,28 @@ const factorialUpto10 = factorialFactory(
 
 console.log('factorialUpTo10(10) => ', factorialUpto10(10)) // 3628800
 console.log('factorialUpTo1o(11) => ', factorialUpto10(11)) // some random value
+
+
+// Y!
+// function y(f) {
+//   f(f(f(f(f(f(...)))))) // for infinity...
+// }
+
+const sqrt = Math.sqrt
+// How do we solve this?
+// sqrt(2 + sqrt(2 + sqrt(2 + sqrt(2 + sqrt(2 ...)))))
+// const S = sqrt(2 + sqrt(2 + sqrt(2 + sqrt(2 + sqrt(2 ...)))))
+
+// S is part of itself, so we could express it as:
+//const S = sqrt(2 + S)
+// So in our y(f) function, y(f) = f(y(f))
+const y = f => x => f(y(f))(x)
+const tenFactorial = y(factorialFactory)(10)
+console.log(tenFactorial)
+
+// y(factorialFactory)(10)
+// factorialFactory(y(factorialFactory))(10)
+// factorialFactory(x => factorialFactory(y(factorialFactory))(x))(10)
+// First piece can be evaluated, so pass on to next:
+// 10 * (x => factorialFactory(y(factorialFactory))(x))(9)
+// 10 * factorialFactory(y(factorialFactory))(9)
